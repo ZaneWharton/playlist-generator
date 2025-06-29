@@ -100,14 +100,14 @@ export default function App() {
 
       
 
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-2 mb-6">
+      <div className="flex flex-col max-w-lg sm:flex-row sm:items-center sm:justify-center gap-4 mb-6">
         <label htmlFor="mood" className="font-medium text-sm text-gray-300">What mood are you in?</label>
         <select id="mood" value={mood} onChange={(e) => setMood(e.target.value)} className="px-1 py-1 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 hover:ring-2 ring-green-400 cursor-pointer">
           {['happy', 'sad', 'energetic', 'chill', 'romantic', 'motivational', 'nostalgic', 'angry', 'relaxed', 'focused'].map(m => (
             <option key={m} value={m}>{m}</option>
           ))};
         </select>
-        <label htmlFor="excludeExplicit" className="font-medium text-sm text-gray-300 sm:mb-6">Exclude Explicit Tracks?</label>
+        <label htmlFor="excludeExplicit" className="font-medium text-sm text-gray-300">Exclude Explicit Tracks?</label>
         <input type="checkbox" id="excludeExplicit" checked={excludeExplicit} onChange={(e) => setExcludeExplicit(e.target.checked)} className="cursor-pointer" />
         <button onClick={handleFetch} disabled={loading} className="px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600 disabled:bg-gray-300">
           {loading ? <div className="w-5 h-5 border-2 border-t-white border-gray-200 rounded-full animate-spin mx-auto" /> : 'Get Playlist'}

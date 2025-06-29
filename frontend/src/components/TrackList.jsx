@@ -19,7 +19,7 @@ export default function TrackList({ tracks }) {
                 >&larr;</button>
             </div>
 
-            <div className="flex items-center justify-center bg-gray-800 bg-opacity-50 p-4 w-full rounded-xl shadow-xl">
+            <div className="flex items-center justify-center bg-gray-800 bg-opacity-50 p-4 w-full sm:max-w-lg rounded-xl shadow-xl">
                 <iframe src={"https://open.spotify.com/embed/track/" + track.id} className="md:w-[425px] md:h-[365px] sm:h-[50px] sm:w-[75px] rounded-lg" allow="encrypted-media"></iframe>
             </div>
             
