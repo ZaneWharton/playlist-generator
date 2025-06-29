@@ -4,7 +4,11 @@ from dotenv import load_dotenv
 from fastapi import HTTPException
 from fastapi import Request
 
-load_dotenv()
+BASE = os.path.dirname(os.path.abspath(__file__))
+DOTENV_FILE = os.path.join(BASE, ".env")
+
+if os.path.exists(DOTENV_FILE):
+    load_dotenv(dotenv_path=DOTENV_FILE)
 
 oauth = OAuth()
 oauth.register(

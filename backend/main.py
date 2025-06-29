@@ -1,4 +1,4 @@
-#Run the server: uvicorn main:app --reload
+#Run the server: uvicorn backend.main:app --reload 
 
 import os
 import httpx
@@ -13,16 +13,23 @@ from backend.auth import oauth, get_current_user
 from backend.spotify import search_playlist
 from dotenv import load_dotenv
 
+BASE = os.path.dirname(os.path.abspath(__file__))
+DOTENV_FILE = os.path.join(BASE, ".env")
+
+if os.path.exists(DOTENV_FILE):
+    load_dotenv(dotenv_path=DOTENV_FILE)
+
 app = FastAPI(title="Mood Playlist Generator")
-load_dotenv()
+
 FRONTEND_URL = os.getenv("FRONTEND_URL")
+IS_PRODUCTION = os.getenv("ENV") == "production"
 
 # Session middleware for user sessions
 app.add_middleware(
     SessionMiddleware,
     secret_key=os.getenv("SESSION_SECRET_KEY"),
-    same_site = "none",
-    https_only=True,
+    same_site = "lax" if not IS_PRODUCTION else "none",
+    https_only=IS_PRODUCTION,
     max_age=3600,  
 )
 
