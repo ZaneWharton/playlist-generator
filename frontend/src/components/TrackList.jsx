@@ -16,10 +16,7 @@ export default function TrackList({ tracks }) {
             </div>
 
             <div className="bg-gray-800 bg-opacity-50 p-8 rounded-xl shadow-xl text-center">
-                <img src={track.album.images[0].url} className="h-60 w-60"/>
-                <h3 className="font-semibold text-lg text-gray-300 w-60">{track.name}</h3>
-                <p className="text-sm text-gray-400 w-60">{track.artists.map(a => a.name).join(', ')}</p>
-                <p><a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-green-500 hover:underline">Listen on Spotify</a></p>
+                <iframe src={"https://open.spotify.com/embed/track/" + track.id} className="mt-4 w-[600px] h-[375px]" allow="encrypted-media"></iframe>
             </div>
             
             <div className="my-auto">

@@ -49,11 +49,11 @@ async def search_playlist(mood: str, limit: int = 24):
         'focused': ['classical', 'electronic', 'ambient', 'study', 'instrumental', 'minimal-techno'],
     }
 
-    # Pick seed genres for recommendations
+    #Pick seed genres for recommendations
     genres = genre_mapping.get(mood.lower(), ["pop"])
     genre = random.choice(genres)
 
-    # First, get total tracks count via a small search
+    #Get total tracks count via a small search
     params_info = {'q': f'genre:"{genre}"', 'type': 'track', 'limit': 1}
     async with httpx.AsyncClient() as client:
         resp_info = await client.get(SEARCH_URL, headers=headers, params=params_info)
@@ -65,7 +65,7 @@ async def search_playlist(mood: str, limit: int = 24):
     max_offset = min(total - limit, 10000) if total > limit else 0
     offset = random.randint(0, max_offset) if max_offset > 0 else 0
 
-    # Call Spotify recommendations endpoint with correct params
+    #Call Spotify recommendations endpoint with correct params
     params = {'q': f'genre:"{genre}"', 'type': 'track', 'limit': limit, 'offset': offset}
     async with httpx.AsyncClient() as client:
         print(f"Calling {SEARCH_URL} with {params}")
