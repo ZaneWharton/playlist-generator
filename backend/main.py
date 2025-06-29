@@ -20,8 +20,9 @@ FRONTEND_URL = os.getenv("FRONTEND_URL")
 app.add_middleware(
     SessionMiddleware,
     secret_key=os.getenv("SESSION_SECRET_KEY"),
-    same_site = "lax",
-    https_only=False,
+    same_site = "none",
+    https_only=True,
+    max_age=3600,  
 )
 
 # CORS middleware to allow requests from the frontend
