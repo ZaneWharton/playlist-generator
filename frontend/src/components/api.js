@@ -1,5 +1,6 @@
 export async function fetchPlaylist(mood) {
-    const url = `http://127.0.0.1:8000/api/playlist?mood=${encodeURIComponent(mood)}`;
+    const BASE_URL = process.env.REACT_APP_API_URL
+    const url = `${BASE_URL}/api/playlist?mood=${encodeURIComponent(mood)}`;
     const resp = await fetch(url, {
         method: 'GET',
         credentials: 'include', 

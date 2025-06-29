@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 
 app = FastAPI(title="Mood Playlist Generator")
 load_dotenv()
+FRONTEND_URL = os.getenv("FRONTEND_URL")
 
 # Session middleware for user sessions
 app.add_middleware(
@@ -26,7 +27,7 @@ app.add_middleware(
 # CORS middleware to allow requests from the frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:3000"],  # Adjust this to your frontend URL in production
+    allow_origins=[FRONTEND_URL],
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
     allow_credentials=True,
@@ -53,7 +54,7 @@ async def callback(request: Request):
     access_token = token['access_token']
     request.session['user'] = user.json()
     request.session['access_token'] = token['access_token']
-    return RedirectResponse(f"http://127.0.0.1:3000/#access_token={access_token}")
+    return RedirectResponse(f"{FRONTEND_URL}/#access_token={access_token}")
 
 @app.get("/api/playlist")
 async def get_playlist(mood: str, user=Depends(get_current_user)):

@@ -18,6 +18,8 @@ export default function App() {
   const [playlistDescription, setPlaylistDescription] = useState('');
   const [playlistUrl, setPlaylistUrl] = useState(null);
 
+  const BASE_URL = process.env.REACT_APP_API_URL
+
   useEffect(() => {
     const hash = window.location.hash.substring(1);
     const params = new URLSearchParams(hash);
@@ -52,7 +54,7 @@ export default function App() {
     if (!playlistName.trim()) {return alert('Please enter a playlist name');}
     const uris = tracks.map(track => track.uri);
     try {
-      const response = await fetch('/api/playlist/save', {
+      const response = await fetch(`${BASE_URL}/api/playlist/save`, {
         method: 'POST',
         credentials: 'include',
         headers: {'Content-Type': 'application/json'},
