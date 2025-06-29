@@ -9,8 +9,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import RedirectResponse, JSONResponse
-from auth import oauth, get_current_user
-from spotify import search_playlist
+from backend.auth import oauth, get_current_user
+from backend.spotify import search_playlist
 from dotenv import load_dotenv
 
 app = FastAPI(title="Mood Playlist Generator")
