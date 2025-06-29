@@ -13,7 +13,7 @@ oauth.register(
     client_secret=os.getenv('SPOTIFY_CLIENT_SECRET'),
     access_token_url='https://accounts.spotify.com/api/token',
     authorize_url='https://accounts.spotify.com/authorize',
-    client_kwargs={'scope': 'user-read-private user-read-email'},
+    client_kwargs={'scope': ('user-read-private user-read-email playlist-modify-private playlist-modify-public')},
 )
 
 async def get_current_user(request: Request):

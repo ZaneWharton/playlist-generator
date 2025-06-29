@@ -1,9 +1,8 @@
-import React from 'react';
-
 export default function LoginButton() {
   const handleLogin = () => {
-    // Redirect to your FastAPI OAuth endpoint
-    window.location.href = `http://127.0.0.1:8000/auth/login`;
+    // Redirect to FastAPI OAuth endpoint
+    const BASE_URL = process.env.REACT_APP_API_URL
+    window.location.href = `${BASE_URL}/auth/login`;
   };
 
   return (
