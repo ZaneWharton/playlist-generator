@@ -1,6 +1,5 @@
 export async function fetchPlaylist(mood) {
-    const BASE_URL = process.env.REACT_APP_API_URL
-    const url = `${BASE_URL}/api/playlist?mood=${encodeURIComponent(mood)}`;
+    const url = `/api/playlist?mood=${encodeURIComponent(mood)}`;
     const resp = await fetch(url, {
         method: 'GET',
         credentials: 'include', 
