@@ -80,7 +80,7 @@ export default function App() {
 
   if (!accessToken) {
     return (
-      <div className="absolute h-full w-full bg-gradient-to-tr from-black via-green-800 to-black px-4 py-8">
+      <div className="absolute h-full w-full bg-gradient-to-tr from-black via-green-800 to-black">
         <div className="flex items-center justify-center min-h-screen">
           <div className="bg-gray-800 bg-opacity-50 p-8 rounded-xl shadow-xl text-center">
             <h2 className="text-2xl font-bold text-white mb-4">Welcome to Spotify Mood Playlist</h2>
@@ -93,7 +93,7 @@ export default function App() {
   }
 
   return (
-    <div className="absolute h-full w-full bg-gradient-to-tr from-black via-green-800 to-black px-4 py-8">
+    <div className="absolute h-full w-full bg-gradient-to-tr from-black via-green-800 to-black">
       <header className="flex justify-center my-8">
         <h1 className="text-3xl font-extrabold text-green-600">Spotify Mood Playlist</h1>
       </header>
@@ -118,7 +118,7 @@ export default function App() {
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-        <div className="text-gray-300 text-center md:text-left">
+        <div className="text-gray-300 text-center">
           <h2 className="text-2xl font-bold mb-2">Current Playlist</h2>
           <p className="capitalize text-gray-300">Mood: <span className="text-green-400">{lastMood}</span></p>
           <p className="text-gray-300">Tracks: <span className="text-green-400">{tracks.length}</span></p>

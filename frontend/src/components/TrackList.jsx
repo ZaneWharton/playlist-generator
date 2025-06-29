@@ -19,10 +19,8 @@ export default function TrackList({ tracks }) {
                 >&larr;</button>
             </div>
 
-            <div className="flex-shrink-0 w-4/5 sm:w-2/3 md:w-1/2 lg:w-1/3 bg-gray-800 bg-opacity-50 p-4 rounded-xl shadow-xl">
-                <div className="relative">
-                    <iframe src={"https://open.spotify.com/embed/track/" + track.id} className="absolute inset-0 w-full h-full rounded-lg" allow="encrypted-media"></iframe>
-                </div>
+            <div className="flex items-center justify-center bg-gray-800 bg-opacity-50 p-4 w-full rounded-xl shadow-xl">
+                <iframe src={"https://open.spotify.com/embed/track/" + track.id} className="md:w-[425px] md:h-[365px] sm:h-[270px] sm:w-[270px] rounded-lg" allow="encrypted-media"></iframe>
             </div>
             
             <div className="my-auto">
