@@ -7,7 +7,7 @@ from typing import List
 from fastapi import FastAPI, Request, Depends, HTTPException, Body
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
-from starlette.responses import RedirectResponse
+from starlette.responses import RedirectResponse, JSONResponse
 from auth import oauth, get_current_user
 from spotify import search_playlist
 from dotenv import load_dotenv
@@ -97,3 +97,10 @@ async def save_playlist( request: Request, user=Depends(get_current_user), paylo
         response.raise_for_status()
 
     return {"url": f"https://open.spotify.com/playlist/{playlist_id}"}
+
+@app.post("/auth/logout")
+async def logout(request: Request):
+    #Logs the user out by clearing the session.
+    
+    request.session.clear()
+    return JSONResponse({"detail": "Logged out"})

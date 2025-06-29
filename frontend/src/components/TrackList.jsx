@@ -11,7 +11,7 @@ export default function TrackList({ tracks }) {
             <div className="my-auto">
                 <button
                     onClick={() => setIndex((index - 1 + total) % total)}
-                    className="cursor-pointer text-green-500 text-5xl"
+                    className="cursor-pointer text-green-500 text-5xl hover:text-green-600"
                 >&larr;</button>
             </div>
 
@@ -22,7 +22,7 @@ export default function TrackList({ tracks }) {
             <div className="my-auto">
                 <button
                     onClick={() => setIndex((index + 1) % total)}
-                    className="cursor-pointer text-green-500 text-5xl"
+                    className="cursor-pointer text-green-500 text-5xl hover:text-green-600"
                 >&rarr;</button>
             </div>
         </div>
