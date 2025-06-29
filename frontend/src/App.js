@@ -100,7 +100,7 @@ export default function App() {
 
       
 
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center sm:w-3/4 gap-2 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-2 mb-6">
         <label htmlFor="mood" className="font-medium text-sm text-gray-300">What mood are you in?</label>
         <select id="mood" value={mood} onChange={(e) => setMood(e.target.value)} className="px-1 py-1 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 hover:ring-2 ring-green-400 cursor-pointer">
           {['happy', 'sad', 'energetic', 'chill', 'romantic', 'motivational', 'nostalgic', 'angry', 'relaxed', 'focused'].map(m => (

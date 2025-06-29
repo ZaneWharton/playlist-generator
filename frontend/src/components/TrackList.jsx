@@ -20,7 +20,7 @@ export default function TrackList({ tracks }) {
             </div>
 
             <div className="flex items-center justify-center bg-gray-800 bg-opacity-50 p-4 w-full rounded-xl shadow-xl">
-                <iframe src={"https://open.spotify.com/embed/track/" + track.id} className="md:w-[425px] md:h-[365px] sm:h-[100px] sm:w-[150px] rounded-lg" allow="encrypted-media"></iframe>
+                <iframe src={"https://open.spotify.com/embed/track/" + track.id} className="md:w-[425px] md:h-[365px] sm:h-[50px] sm:w-[75px] rounded-lg" allow="encrypted-media"></iframe>
             </div>
             
             <div className="my-auto">
