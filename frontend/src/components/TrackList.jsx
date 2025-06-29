@@ -2,8 +2,12 @@ import {useState} from 'react';
 
 export default function TrackList({ tracks }) {
     const [index, setIndex] = useState(0);
-    const total = tracks.length;
-    const track = tracks[index];
+    
+    const validTracks = tracks.filter(track => track.id && track.uri);
+    if (!validTracks.length) return <p className="text-3xl font-bold text-green-600 mt-20">No valid tracks available!</p>;
+
+    const total = validTracks.length;
+    const track = validTracks[index];
     if (!total) return null;
 
     return (

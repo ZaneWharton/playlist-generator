@@ -11,6 +11,8 @@ export default function App() {
   const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [lastMood, setLastMood] = useState('None');
+  const [excludeExplicit, setExcludeExplicit] = useState(false); 
 
   const [playlistName, setPlaylistName] = useState('');
   const [playlistDescription, setPlaylistDescription] = useState('');
@@ -36,7 +38,9 @@ export default function App() {
     setError(null);
     try {
       const playlist = await fetchPlaylist(mood);
-      setTracks(playlist || []);
+      const filteredTracks = excludeExplicit ? playlist.filter(track => !track.explicit) : playlist;
+      setTracks(filteredTracks || []);
+      setLastMood(mood);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -97,22 +101,34 @@ export default function App() {
 
       
 
-      <section className="flex justify-center gap-4 mb-6">
-        <label htmlFor="mood" className="font-medium text-gray-300">Mood:</label>
-        <select id="mood" value={mood} onChange={(e) => setMood(e.target.value)} className="px-3 py-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 hover:ring-2 ring-green-400 cursor-pointer">
+      <div className="flex justify-center items-center gap-4 mb-6">
+        <label htmlFor="mood" className="font-medium text-sm text-gray-300">What mood are you in?</label>
+        <select id="mood" value={mood} onChange={(e) => setMood(e.target.value)} className="px-1 py-1 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 hover:ring-2 ring-green-400 cursor-pointer">
           {['happy', 'sad', 'energetic', 'chill', 'romantic', 'motivational', 'nostalgic', 'angry', 'relaxed', 'focused'].map(m => (
             <option key={m} value={m}>{m}</option>
           ))};
         </select>
+        <label htmlFor="excludeExplicit" className="font-medium text-sm text-gray-300">Exclude Explicit Tracks?</label>
+        <input type="checkbox" id="excludeExplicit" checked={excludeExplicit} onChange={(e) => setExcludeExplicit(e.target.checked)} className="cursor-pointer" />
         <button onClick={handleFetch} disabled={loading} className="px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600 disabled:bg-gray-300">
           {loading ? <div className="w-5 h-5 border-2 border-t-white border-gray-200 rounded-full animate-spin mx-auto" /> : 'Get Playlist'}
         </button>
-      </section>
+      </div>
   
       {error && <div className="text-red-600 mb-4">{error}</div>}
       
       <div className="grid grid-cols-3 gap-6 p-4">
-        {tracks.length > 0 ? <div className="col-start-2"><TrackList tracks={tracks}/></div> : <div className="col-start-2 text-center"><p className="text-3xl font-bold text-green-600">Select a mood and click "Get Playlist" to start!</p></div>}
+
+        <div className="col-start-1 text-center">
+          <h2 className="text-2xl font-bold text-gray-300 mt-20 mb-4">Current Playlist</h2>
+          <p className="capitalize text-gray-300">Mood: <span className="text-green-400">{lastMood}</span></p>
+          <p className="text-gray-300">Tracks: <span className="text-green-400">{tracks.length}</span></p>
+        </div>
+
+        <div className="col-start-2 text-center">
+          {tracks.length > 0 ? <div className="col-start-2"><TrackList tracks={tracks}/></div> : <div className="col-start-2 text-center"><p className="text-3xl font-bold text-green-600 mt-20">No tracks yet!</p></div>}
+        </div>
+
         <div className="col-start-3 text-center mt-4 text-gray-300">
           <input type="text" placeholder="Playlist Name" value={playlistName} onChange={(e) => setPlaylistName(e.target.value)} className="w-4/5 mx-4 mb-2 p-2 rounded bg-gray-700 text-white" />
           <textarea placeholder="Playlist Description" value={playlistDescription} onChange={(e) => setPlaylistDescription(e.target.value)} className="w-4/5 mx-4 mb-2 p-2 rounded bg-gray-700 text-white"></textarea>
@@ -122,7 +138,6 @@ export default function App() {
           )}
           <p className="text-gray-300 mt-4">Powered by Spotify API</p>
           <LogoutButton onLogout={handleLogout} />
-          
         </div>
       </div>
     </div>

@@ -30,7 +30,7 @@ async def get_token():
     token_cache['expires_at'] = now + result['expires_in']
     return token_cache['access_token']
 
-async def search_playlist(mood: str, limit: int = 24):
+async def search_playlist(mood: str):
     # Searches for a playlist based on the user's mood using Spotify API.
 
     token = await get_token()
@@ -42,7 +42,7 @@ async def search_playlist(mood: str, limit: int = 24):
         'energetic': ['rock', 'metal', 'edm', 'punk', 'hard-rock', 'hip-hop', 'drum-and-bass'],
         'chill': ['ambient', 'lo-fi', 'chill', 'downtempo', 'jazz', 'soul', 'new-age'],
         'romantic': ['romance', 'love', 'r-n-b', 'jazz', 'soul', 'acoustic', 'ballad'],
-        'motivational': ['power-pop', 'uplifting', 'work-out', 'dance', 'edm', 'pop', 'rock'],
+        'motivational': ['power-pop', 'uplifting', 'dance', 'edm', 'pop', 'rock'],
         'nostalgic': ['retro', 'classic', 'old-school', 'classic-rock'],
         'angry': ['punk', 'hardcore', 'metalcore', 'heavy-metal', 'emo', 'grunge'],
         'relaxed': ['jazz', 'blues', 'brazil', 'latin', 'reggae', 'instrumental', 'smooth-jazz'],
@@ -61,7 +61,7 @@ async def search_playlist(mood: str, limit: int = 24):
         info = resp_info.json()
     total = info.get('tracks', {}).get('total', 0)
 
-
+    limit = random.randint(20, 50)  # Random limit between 10 and 50
     max_offset = min(total - limit, 10000) if total > limit else 0
     offset = random.randint(0, max_offset) if max_offset > 0 else 0
 
