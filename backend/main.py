@@ -17,7 +17,8 @@ app = FastAPI(title="Mood Playlist Generator")
 load_dotenv()
 FRONTEND_URL = os.getenv("FRONTEND_URL")
 
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
+static_directory = os.path.join(os.path.dirname(__file__), "../frontend/build")
+app.mount("/", StaticFiles(directory=static_directory, html=True), name="static")
 
 # Session middleware for user sessions
 app.add_middleware(
