@@ -93,8 +93,8 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen h-full w-full bg-gradient-to-tr from-black via-green-800 to-black">
-      <header className="flex justify-center my-8">
+    <div className="min-h-screen h-full w-full bg-gradient-to-tr from-black via-green-800 to-black pt-8">
+      <header className="flex justify-center">
         <h1 className="text-3xl font-extrabold text-green-600">Spotify Mood Playlist</h1>
       </header>
 
@@ -102,14 +102,14 @@ export default function App() {
 
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 mb-6">
         <label htmlFor="mood" className="font-medium text-sm text-gray-300">What mood are you in?</label>
-        <select id="mood" value={mood} onChange={(e) => setMood(e.target.value)} className="px-1 py-1 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 hover:ring-2 ring-green-400 cursor-pointer">
+        <select id="mood" value={mood} onChange={(e) => setMood(e.target.value)} className="px-1 py-1 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 hover:ring-2 ring-green-400 cursor-pointer w-fit sm:w-auto">
           {['happy', 'sad', 'energetic', 'chill', 'romantic', 'motivational', 'nostalgic', 'angry', 'relaxed', 'focused'].map(m => (
             <option key={m} value={m}>{m}</option>
           ))};
         </select>
-        <label htmlFor="excludeExplicit" className="font-medium text-sm text-gray-300">Exclude Explicit Tracks?</label>
-        <input type="checkbox" id="excludeExplicit" checked={excludeExplicit} onChange={(e) => setExcludeExplicit(e.target.checked)} className="cursor-pointer" />
-        <button onClick={handleFetch} disabled={loading} className="px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600 disabled:bg-gray-300">
+        <label htmlFor="excludeExplicit" className="font-medium text-sm text-gray-300 w-fit sm:w-auto">Exclude Explicit Tracks?</label>
+        <input type="checkbox" id="excludeExplicit" checked={excludeExplicit} onChange={(e) => setExcludeExplicit(e.target.checked)} className="cursor-pointer w-fit sm:w-auto" />
+        <button onClick={handleFetch} disabled={loading} className="px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600 disabled:bg-gray-300 w-fit sm:w-auto">
           {loading ? <div className="w-5 h-5 border-2 border-t-white border-gray-200 rounded-full animate-spin mx-auto" /> : 'Get Playlist'}
         </button>
       </div>
