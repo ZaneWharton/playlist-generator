@@ -1,3 +1,5 @@
+//Handle user login by redirecting to the FastAPI OAuth endpoint
+
 export default function LoginButton() {
   const handleLogin = () => {
     // Redirect to FastAPI OAuth endpoint

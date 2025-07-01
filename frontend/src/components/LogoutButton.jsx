@@ -1,5 +1,7 @@
+//Handle user logout by sending a request to the FastAPI logout endpoint
+
 export default function LogoutButton({ onLogout }) {
-    // Send a request to the FastAPI logout endpoint
+    //Send a request to the FastAPI logout endpoint
     
     const handleLogout = async () => {
         try {
@@ -8,8 +10,8 @@ export default function LogoutButton({ onLogout }) {
                 credentials: 'include', 
             });
             onLogout();
-        } catch (error) {
-            console.error('Logout failed:', error);
+        } catch (err) {
+            console.error('Logout failed:', err);
             }
         };
 

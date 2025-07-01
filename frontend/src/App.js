@@ -1,3 +1,5 @@
+//Main entry point for the React application
+
 import { useEffect, useState } from 'react';
 import { fetchPlaylist } from './components/api.js';
 import TrackList from './components/TrackList';
@@ -6,18 +8,21 @@ import LogoutButton from './components/LogoutButton.jsx';
 import './index.css';
 
 export default function App() {
+  //State variables to manage the application state
   const [accessToken, setAccessToken] = useState(null);
   const [mood, setMood] = useState('happy');
+  const [lastMood, setLastMood] = useState('None');
+  const [excludeExplicit, setExcludeExplicit] = useState(false); 
+
   const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [lastMood, setLastMood] = useState('None');
-  const [excludeExplicit, setExcludeExplicit] = useState(false); 
 
   const [playlistName, setPlaylistName] = useState('');
   const [playlistDescription, setPlaylistDescription] = useState('');
   const [playlistUrl, setPlaylistUrl] = useState(null);
 
+  //Check for access token in URL hash on initial load
   useEffect(() => {
     const hash = window.location.hash.substring(1);
     const params = new URLSearchParams(hash);
@@ -28,6 +33,7 @@ export default function App() {
     }
   }, []);
 
+  //Fetch playlist when mood changes or on initial load
   const handleFetch = async () => {
     setPlaylistUrl(null);
     setPlaylistName('');
@@ -47,6 +53,7 @@ export default function App() {
     }
   };
 
+  //Save playlist handler
   const handleSave = async () => {
     if (!playlistName.trim()) {return alert('Please enter a playlist name');}
     const uris = tracks.map(track => track.uri);
@@ -69,7 +76,9 @@ export default function App() {
     }
   };
 
+  //Logout handler to clear state
   const handleLogout = () => {
+    //Clear in memory state, backend session cookie will be cleared by the server upon expiration
     setAccessToken(null);
     setTracks([]);
     setMood('happy');
@@ -78,9 +87,11 @@ export default function App() {
     setPlaylistUrl(null);
   };
 
+  //If no access token, show login prompt
+  //Otherwise, show the main application UI
   if (!accessToken) {
     return (
-      <div className="min-h-screen h-full w-full bg-gradient-to-tr from-black via-green-800 to-black">
+      <div className="min-h-screen bg-gradient-to-tr from-black via-green-800 to-black">
         <div className="flex items-center justify-center min-h-screen">
           <div className="bg-gray-800 bg-opacity-50 p-8 rounded-xl shadow-xl text-center">
             <h2 className="text-2xl font-bold text-white mb-4">Welcome to Spotify Mood Playlist</h2>
@@ -92,15 +103,16 @@ export default function App() {
     )
   }
 
+  //Main application UI
   return (
-    <div className="min-h-screen h-full w-full bg-gradient-to-tr from-black via-green-800 to-black pt-8">
+    <div className="min-h-screen bg-gradient-to-tr from-black via-green-800 to-black pt-8">
       <header className="flex justify-center">
         <h1 className="text-3xl font-extrabold text-green-600">Spotify Mood Playlist</h1>
       </header>
 
       
 
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 mb-6">
+      <div className="flex flex-col items-center sm:flex-row sm:justify-center gap-3 mt-4 mb-6">
         <label htmlFor="mood" className="font-medium text-sm text-gray-300">What mood are you in?</label>
         <select id="mood" value={mood} onChange={(e) => setMood(e.target.value)} className="px-1 py-1 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 hover:ring-2 ring-green-400 cursor-pointer w-fit sm:w-auto">
           {['happy', 'sad', 'energetic', 'chill', 'romantic', 'motivational', 'nostalgic', 'angry', 'relaxed', 'focused'].map(m => (
