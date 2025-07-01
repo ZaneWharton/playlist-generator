@@ -1,11 +1,19 @@
+#Authentication and OAuth setup for Spotify API
+
 import os
 from authlib.integrations.starlette_client import OAuth
 from dotenv import load_dotenv
 from fastapi import HTTPException
 from fastapi import Request
 
-load_dotenv()
+#Load environment variables from .env file
+BASE = os.path.dirname(os.path.abspath(__file__))
+DOTENV_FILE = os.path.join(BASE, ".env")
 
+if os.path.exists(DOTENV_FILE):
+    load_dotenv(dotenv_path=DOTENV_FILE)
+
+#Initialize OAuth client for Spotify
 oauth = OAuth()
 oauth.register(
     name='spotify',
@@ -16,8 +24,9 @@ oauth.register(
     client_kwargs={'scope': ('user-read-private user-read-email playlist-modify-private playlist-modify-public')},
 )
 
+#Function to get the current user from the session.
 async def get_current_user(request: Request):
-    # Retrieves the current user from the session.
+    #Checks if the user is authenticated by looking for 'user' in the session.
 
     user = request.session.get('user')
     print("session: ", request.session)

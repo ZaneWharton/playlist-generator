@@ -1,8 +1,9 @@
+//Handle user login by redirecting to the FastAPI OAuth endpoint
+
 export default function LoginButton() {
   const handleLogin = () => {
     // Redirect to FastAPI OAuth endpoint
-    const BASE_URL = process.env.REACT_APP_API_URL
-    window.location.href = `${BASE_URL}/auth/login`;
+    window.location.href = `/auth/login`;
   };
 
   return (
