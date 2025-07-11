@@ -21,7 +21,10 @@ oauth.register(
     client_secret=os.getenv('SPOTIFY_CLIENT_SECRET'),
     access_token_url='https://accounts.spotify.com/api/token',
     authorize_url='https://accounts.spotify.com/authorize',
-    client_kwargs={'scope': ('user-read-private user-read-email playlist-modify-private playlist-modify-public')},
+    client_kwargs={'scope': ("playlist-modify-private "
+                              "playlist-modify-public "
+                              "user-read-private "
+                              "user-read-email")},
 )
 
 #Function to get the current user from the session.
